@@ -1,0 +1,30 @@
+HTML tags:
+1.  <div>
+2.  <h>
+4.  <p>
+5.  <a>
+6.  <img>
+7.  <nav>
+8.  <ul>
+9.  <li>
+10. <button>
+11. <input>
+
+CSS Selector:
+1.  .title
+2.  .footer
+3.  h1
+4.  h2
+5.  h3
+6.  p
+7.  a
+8.  a:hover
+
+Bootstrap:
+1.  Card Component
+2.  Navbar Component
+3.  Button Component
+
+JavaScript:
+1. Search Forwarding
+

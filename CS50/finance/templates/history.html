@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Shares</th>
+                <th>Share_Value</th>
+                <th>Action</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for action in actions %}
+                <tr>
+                    <td>{{ action.stockname }}</td>
+                    <td>{{ action.shares }}</td>
+                    <td>{{ action.price }}</td>
+                    <td>{{ action.action }}</td>
+                    <td>{{ action.date }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

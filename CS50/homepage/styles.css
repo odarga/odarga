@@ -1,0 +1,44 @@
+.title {
+    background-color: #5a5a5a;
+    color: #fff;
+    text-align: center;
+    padding: 2rem;
+}
+
+.footer {
+    text-align: center;
+    width: 100%;
+}
+
+h1 {
+    font-size: 40px;
+    font-weight: bold;
+    font-family: "Times New Roman", Times, serif;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: bold;
+    font-family: "Times New Roman", Times, serif;
+}
+
+h3 {
+    font-size: 16px;
+    font-family: "Times New Roman", Times, serif;
+}
+
+p {
+    font-size: 12px;
+    font-family: "Times New Roman", Times, serif;
+}
+
+a
+{
+    color: #000;
+    text-decoration: none;
+}
+
+a:hover
+{
+    text-decoration: underline;
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+        <title>Trivia!</title>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+
+                let correct = document.querySelector('#true');
+
+                correct.addEventListener('click', function() {
+                    correct.style.backgroundColor = 'green';
+                    document.querySelector('#result1').innerHTML = 'Correct!';
+                });
+
+                let incorrect = document.querySelectorAll('#false');
+
+                for (let i = 0; i < incorrect.length; i++) {
+                    incorrect[i].addEventListener('click', function() {
+                        incorrect[i].style.backgroundColor = 'red';
+                        document.querySelector('#result1').innerHTML = 'Incorrect!';
+                    });
+                }
+
+                let check = document.querySelector('#check');
+
+                check.addEventListener('click', function() {
+                    let answer = document.querySelector("#answer")
+                    if (answer.value == 'Sergen'){
+                        answer.style.backgroundColor = 'green';
+                        document.querySelector('#result2').innerHTML = 'Correct!';
+                    }
+                    else {
+                        answer.style.backgroundColor = 'red';
+                        document.querySelector('#result2').innerHTML = 'Incorrect';
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Trivia!</h1>
+        </div>
+
+        <div class="container">
+            <div class="section">
+                <h2>Part 1: Multiple Choice </h2>
+                <hr>
+                <h3>Which of the strikers below played for Beşiktaş JK?</h3>
+                <button id="false">Zlatan Ibrahimovic</button>
+                <button id="false">David Trezeguet</button>
+                <button id="true">Mario Gomez</button>
+                <button id="false">Fernando Torres</button>
+                <button id="false">Christian Vieri</button>
+                <p id="result1"></p>
+            </div>
+
+            <div class="section">
+                <h2>Part 2: Free Response</h2>
+                <hr>
+                <h3>What is the first name of the last manager who won championship title with Beşiktaş JK?</h3>
+                <input id="answer" autocomplete="off">
+                <button id="check">Check Answer</button>
+                <p id="result2"></p>
+            </div>
+        </div>
+    </body>
+</html>

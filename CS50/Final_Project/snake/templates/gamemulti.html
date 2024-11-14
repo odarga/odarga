@@ -1,0 +1,282 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <div>
+        <canvas class="game" id="snake" width="800" height="400""></canvas>
+    </div>
+
+    <div class="row">
+
+        <div class="column">
+            <p3>{{ player1 }}</p3>
+            <br>
+            <p6 id="result1"></p6>
+            <br>
+            <p6 id="result3"></p6>
+        </div>
+        <div class="column">
+            <p4>{{ player2 }}</p4>
+            <br>
+            <p7 id="result2"></p7>
+            <br>
+            <p7 id="result4"></p7>
+        </div>
+    </div>
+    <div>
+        <p8 id="result5"></p8>
+    </div>
+
+    <script>
+
+        document.getElementById("result5").innerHTML = "PRESS ENTER TO START";
+
+        const http = new XMLHttpRequest();
+        const url = "https://miniature-space-guacamole-4jjxpgx4jqrrfqpwv-5000.app.github.dev/gamemulti";
+
+        function game(){
+
+            document.getElementById("result1").innerHTML = "";
+            document.getElementById("result2").innerHTML = "";
+            document.getElementById("result3").innerHTML = "";
+            document.getElementById("result4").innerHTML = "";
+            document.getElementById("result5").innerHTML = "";
+
+            const canvas = document.getElementById("snake");
+            const ctx = canvas.getContext("2d");
+
+            ctx.clearRect(0, 0, 800, 400);
+
+            let grid = 20;
+
+            let snake1 = [379, 378, 377, 376, 375];
+            let snake2 = [420, 421, 422, 423, 424];
+
+            let random = 0;
+
+            let d1 = -1;
+            let d2= 1;
+
+            let score1 = 5;
+            let score2 = 5;
+
+            ctx.fillStyle = "#ff0000";
+
+            for(let i = 0; i < snake1.length; i++){
+                x = (Math.floor(snake1[i] % 40)) * grid;
+                y = (Math.floor(snake1[i] / 40)) * grid;
+                ctx.fillRect(x +1, y + 1, grid - 1, grid - 1);
+                ctx.stroke();
+            };
+
+            ctx.fillStyle = "#0000ff";
+
+            for(let j = 0; j < snake2.length; j++){
+                x = (Math.floor(snake2[j] % 40)) * grid;
+                y = (Math.floor(snake2[j] / 40)) * grid;
+                ctx.fillRect(x + 1, y + 1, grid - 1, grid - 1);
+                ctx.stroke();
+            };
+
+            document.addEventListener('keydown', function(event) {
+                if(event.keyCode == 37){
+                    if(d1 != 1){
+                        d1 = -1;
+                    }
+                }
+                else if(event.keyCode == 38){
+                    if(d1 != 40){
+                        d1 = -40;
+                    }
+                }
+                else if(event.keyCode == 39){
+                    if(d1 != -1){
+                        d1 = 1;
+                    }
+                }
+                else if(event.keyCode == 40){
+                    if(d1 != -40){
+                        d1 = 40;
+                    }
+                }
+                if(event.keyCode == 65){
+                    if(d2 != 1){
+                        d2 = -1;
+                    }
+                }
+                else if(event.keyCode == 87){
+                    if(d2 != 40){
+                        d2 = -40;
+                    }
+                }
+                else if(event.keyCode == 68){
+                    if(d2 != -1){
+                        d2 = 1;
+                    }
+                }
+                else if(event.keyCode == 83){
+                    if(d2 != -40){
+                        d2 = 40;
+                    }
+                }
+            });
+
+            function food(){
+
+                ctx.fillStyle = "#000";
+
+                random = Math.floor(Math.random() * 800);
+
+                if(snake1.includes(random) || snake2.includes(random)){
+                    food();
+                }
+
+                x = (Math.floor(random % 40)) * grid;
+                y = (Math.floor(random / 40)) * grid;
+                ctx.fillRect(x + 1, y + 1, grid - 1, grid - 1);
+                ctx.stroke();
+            };
+
+            food();
+
+            const interval = setInterval(play, 100);
+
+            function play(){
+
+                if(snake1.length != 0){
+
+                    ctx.fillStyle = "#fff";
+
+                    x = (Math.floor(snake1[0] % 40)) * grid;
+                    y = (Math.floor(snake1[0] / 40)) * grid;
+                    ctx.fillRect(x + 1, y + 1, grid - 1, grid - 1);
+                    ctx.stroke();
+                }
+
+                if(snake2.length != 0){
+
+                    ctx.fillStyle = "#fff";
+
+                    x = (Math.floor(snake2[0] % 40)) * grid;
+                    y = (Math.floor(snake2[0] / 40)) * grid;
+                    ctx.fillRect(x + 1, y + 1, grid - 1, grid - 1);
+                    ctx.stroke();
+                }
+
+                if(snake1.length != 0){
+
+                    ctx.fillStyle = "#ff0000";
+
+                    snake1.shift();
+
+                    if(snake1.includes(snake1[snake1.length - 1] + d1)){
+                        snake1 = [];
+                    }
+                    else{
+                        snake1.push(snake1[snake1.length - 1] + d1);
+                    }
+                }
+
+                if(snake2.length != 0){
+
+                    ctx.fillStyle = "#0000ff";
+
+                    snake2.shift();
+
+                    if(snake2.includes(snake2[snake2.length - 1] + d2)){
+                        snake2 = [];
+                    }
+                    else{
+                        snake2.push(snake2[snake2.length - 1] + d2);
+                    }
+                }
+
+                if(snake1.length != 0){
+
+                    if(snake1[snake1.length - 1] == random){
+                        score1++;
+                        snake1.push(snake1[snake1.length - 1] + d1);
+                        food();
+                    }
+                }
+
+                if(snake2.length != 0){
+                    if(snake2[snake2.length - 1] == random){
+                        score2++;
+                        snake2.push(snake2[snake2.length - 1] + d2);
+                        food();
+                    }
+                }
+
+                if(snake1.length != 0){
+                    if((d1 == 1 && Math.floor(snake1[snake1.length - 1] % 40) == 0) || (d1 == -1 && Math.floor(snake1[snake1.length - 1] % 40) == 39) || snake1[snake1.length - 1] < 0 || snake1[snake1.length - 1] >= 800){
+                        snake1 = [];
+                    }
+                }
+
+                if(snake2.length != 0){
+                    if((d2 == 1 && Math.floor(snake2[snake2.length - 1] % 40) == 0) || (d2 == -1 && Math.floor(snake2[snake2.length - 1] % 40) == 39) || snake2[snake2.length - 1] < 0 || snake2[snake2.length - 1] >= 800){
+                        snake2 = [];
+                    }
+                }
+
+                if(snake1.length != 0){
+                    ctx.fillStyle = "#ff0000";
+
+                    if((d1 == 1 && Math.floor(snake1[snake1.length - 1] % 40) != 0) || (d1 == -1 && Math.floor(snake1[snake1.length - 1] % 40) != 39) || (d1 == -40 && snake1[snake1.length - 1] >= 0) || ( d1 == 40 && snake1[snake1.length - 1] < 800)){
+                        for(let i = 0; i < snake1.length; i++){
+                            x = (Math.floor(snake1[i] % 40)) * grid;
+                            y = (Math.floor(snake1[i] / 40)) * grid;
+                            ctx.fillRect(x + 1, y + 1, grid - 1, grid - 1);
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                if(snake2.length != 0){
+                    ctx.fillStyle = "#0000ff";
+
+                    if((d2 == 1 && Math.floor(snake2[snake2.length - 1] % 40) != 0) || (d2 == -1 && Math.floor(snake2[snake2.length - 1] % 40) != 39) || (d2 == -40 && snake2[snake2.length - 1] >= 0) || ( d2 == 40 && snake2[snake2.length - 1] < 800)){
+                        for(let j = 0; j < snake2.length; j++){
+                            x = (Math.floor(snake2[j] % 40)) * grid;
+                            y = (Math.floor(snake2[j] / 40)) * grid;
+                            ctx.fillRect(x + 1, y + 1, grid - 1, grid - 1);
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                if(snake1.length == 0 && snake2.length == 0){
+                    clearInterval(interval);
+                    document.getElementById("result1").innerHTML = "SCORE:&nbsp;" + score1;
+                    document.getElementById("result2").innerHTML = "SCORE:&nbsp;" + score2;
+                    if(score1 > score2){
+                        document.getElementById("result3").innerHTML = "WIN";
+                        document.getElementById("result4").innerHTML = "LOSS";
+                    }
+                    else if(score1 < score2){
+                        document.getElementById("result3").innerHTML = "LOSS";
+                        document.getElementById("result4").innerHTML = "WIN";
+                    }
+                    else{
+                        document.getElementById("result3").innerHTML = "DRAW";
+                        document.getElementById("result4").innerHTML = "DRAW";
+                    }
+                    document.getElementById("result5").innerHTML = "PRESS ENTER TO TRY AGAIN";
+                    let scores = [score1, score2]
+                    http.open("POST", url);
+                    http.send(scores);
+                }
+
+            };
+        };
+
+        document.addEventListener('keydown', function(event) {
+            if(event.keyCode == 13){
+                game();
+            }
+        });
+
+    </script>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <form action="/multi" method="post">
+        <div class="form">
+                <div>
+                    <input class="input1" type="text" id="player1" name="player1" placeholder="Player 1" autofocus autocomplete="off">
+                    <input class="input2" type="text" id="player2" name="player2" placeholder="Player 2" autocomplete="off">
+                </div>
+                <div>
+                    <button type="submit" class="button" id="play">PLAY</button>
+                </div>
+        </div>
+    </form>
+
+    <div style="margin-top: 50px">
+        <p5>INSTRUCTIONS</p5>
+        </div>
+        <div>
+            <button type="submit" class="button1" id="play"><p6>&uarr;</p6><br><p7>W</p7></button>
+        </div>
+        <div>
+            <button type="submit" class="button1" id="play"><p6>&larr;</p6><br><p7>A</p7></button>
+            <button type="submit" class="button1" style="margin:0px 15px 0px 15px" id="play"><p6>&darr;</p6><br><p7>S</p7></button>
+            <button type="submit" class="button1" id="play"><p6>&rarr;</p6><br><p7>D</p7></button>
+        </div>
+    </div>
+
+{% endblock %}

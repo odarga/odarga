@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="/static/styles.css" rel="stylesheet">
+        <title>Birthdays</title>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Birthdays</h1>
+        </div>
+        <div class="container">
+            <div class="section">
+
+                <h2>Edit Birthday</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for birthday in birthdays %}
+                            <tr>
+                                <td>{{ birthday.name }}</td>
+                                <td>
+                                    <form action="/edit" method="post">
+                                        <input name="month_new" autocomplete="off" placeholder="Month" type="number" min="1" max="12">
+                                        <input name="day_new" autocomplete="off" placeholder="Day" type="number" min="1" max="31">
+                                        <input name="change" type="hidden" value="{{ birthday.id }}">
+                                        <button type="submit">Edit</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
