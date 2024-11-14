@@ -1,0 +1,14 @@
+sort1 uses: bubble sort
+
+sorted50000  --> 0.38 (n )
+reversed5000 --> 5.12 (n2)
+
+sort2 uses: merge sort
+
+sorted50000  --> 0.42 (nlogn)
+reversed5000 --> 0.43 (nlogn)
+
+sort3 uses: selection sort
+
+sorted50000  --> 2.27 (n2)
+reversed5000 --> 2.71 (n2)
